@@ -15,10 +15,15 @@
             :dev-checksum "EA609A7373B6EF48B3FC3F403C7ED870"
             :min (str "http://fb.me/react-" react-version ".min.js")
             :min-checksum "C3B6B1BDF51C9EF4BA3473A2E1DCB83A"}
-   :with-addons {:dev (str "http://fb.me/react-with-addons-" react-version ".js")
-                 :dev-checksum "634ECBF4118F756CDED92ACD2EFEC834"
-                 :min (str "http://fb.me/react-with-addons-" react-version ".min.js")
-                 :min-checksum "7FE3B6790A5DB124191DC3D6669AFE38"}})
+   :with-addons {;; :dev (str "http://fb.me/react-with-addons-" react-version ".js")
+                 ;; :dev-checksum "634ECBF4118F756CDED92ACD2EFEC834"
+                 :dev "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-0.13.3.js"
+                 :dev-checksum "1E8DBD6BC329E0D7DCA5DFC1D35ADDF4"
+                 ;; :min (str "http://fb.me/react-with-addons-" react-version ".min.js")
+                 ;; :min-checksum "7FE3B6790A5DB124191DC3D6669AFE38"
+                 :min "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-0.13.3.min.js"
+                 :min-checksum "52B8614CEF3451C2C942941D9CDBF94E"
+                 }})
 
 (task-options!
  pom  {:project     'cljsjs/react
