@@ -1,8 +1,11 @@
 (set-env!
   :resource-paths #{"resources"}
-  :dependencies '[[cljsjs/boot-cljsjs "0.5.0" :scope "test"]])
+  :dependencies '[[adzerk/bootlaces "0.1.13"]
+                  [cljsjs/boot-cljsjs "0.5.0" :scope "test"]])
 
-(require '[cljsjs.boot-cljsjs.packaging :refer :all])
+(require
+ '[adzerk.bootlaces :refer :all]
+ '[cljsjs.boot-cljsjs.packaging :refer :all])
 
 (def +lib-version+ "0.14.7")
 (def +version+ (str +lib-version+ "-0"))
@@ -12,8 +15,8 @@
    {:dev "9827F329E05158D465B92FCA097B62BA",
     :min "9BA549A9A66AB9C7E8EAE26D39FCDC5F"},
    'cljsjs/react-with-addons
-   {:dev "AE75453773637E283D25837E4F546727",
-    :min "C338B4AEB2C471CB740E1782786C0DDB"},
+   {:dev "94EC7E714FA1B9A6C5E12D3328C1B3F1",
+    :min "DB96F1157B73649E2B3AB292C8A00BC0"},
    'cljsjs/react-dom
    {:dev "4727B1A3E7487B3DE93E0982D2111F12",
     :min "120C66F0F9C6E5B7813D62FA445F8996"},
@@ -47,14 +50,14 @@
                                           (:tree fileset)))]
         (handler fileset)))))
 
-(defn package-part [{:keys [extern-name namespace project dependencies requires]}]
+(defn package-part [{:keys [extern-name namespace project dependencies requires dev-url min-url]}]
   (with-files (fn [x] (= extern-name (.getName (tmp-file x))))
     (comp
-      (download :url (format "http://fb.me/%s-%s.js" (name project) +lib-version+)
-                :checksum (:dev (get checksums project)))
-      (download :url (format "http://fb.me/%s-%s.min.js" (name project) +lib-version+)
-                :checksum (:min (get checksums project)))
-      (sift :move {(re-pattern (format "^%s-%s.js$" (name project) +lib-version+))     (format "cljsjs/%1$s/development/%1$s.inc.js" (name project))
+     (download :url (or dev-url (format "http://fb.me/%s-%s.js" (name project) +lib-version+))
+               :checksum (:dev (get checksums project)))
+     (download :url (or min-url (format "http://fb.me/%s-%s.min.js" (name project) +lib-version+))
+               :checksum (:min (get checksums project)))
+     (sift :move {(re-pattern (format "^%s-%s.js$" (name project) +lib-version+))     (format "cljsjs/%1$s/development/%1$s.inc.js" (name project))
                    (re-pattern (format "^%s-%s.min.js$" (name project) +lib-version+)) (format "cljsjs/%1$s/production/%1$s.min.inc.js" (name project))})
       (sift :include #{#"^cljsjs"})
       (deps-cljs :name namespace :requires requires)
@@ -87,7 +90,9 @@
   (package-part
     {:extern-name "react.ext.js"
      :namespace "cljsjs.react"
-     :project 'cljsjs/react-with-addons}))
+     :project 'mccraigmccraig/react-with-addons
+     :dev-url "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-0.14.7.js"
+     :min-url "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-0.14.7.min.js"}))
 
 (deftask package []
   (comp
