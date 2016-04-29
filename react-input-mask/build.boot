@@ -1,11 +1,11 @@
 (set-env!
   :resource-paths #{"resources"}
-  :dependencies '[[cljsjs/boot-cljsjs "0.5.0"  :scope "test"]
+  :dependencies '[[cljsjs/boot-cljsjs "0.5.1"  :scope "test"]
                   [cljsjs/react "0.14.3-0"]])
 
 (require '[cljsjs.boot-cljsjs.packaging :refer :all])
 
-(def +lib-version+ "0.5.10")
+(def +lib-version+ "0.6.2")
 (def +version+ (str +lib-version+ "-0"))
 
 (task-options!
@@ -23,13 +23,20 @@
 
 (deftask package []
   (comp
-    (download :url "https://raw.githubusercontent.com/sanniassin/react-input-mask/05c101e4937d54966f673113a1432afb53fb9541/InputElement.js"
-              :checksum "9119D65B8CCEA2EFF7B5BAE748528B1F")
+    (download :url "https://raw.githubusercontent.com/sanniassin/react-input-mask/0.6.2/build/InputElement.js"
+              :checksum "75D0299C71420641A8503F3ED4383835")
+
+    (replace-content :in "InputElement.js" :out "InputElement.js"
+      :match #"var React = require.*;"
+      :value "")
+    (replace-content :in "InputElement.js" :out "InputElement.js"
+      :match #"module.exports = .*;"
+      :value "")
 
     (sift :move {#"^InputElement.js$" "cljsjs/react-input-mask/development/react-input-mask.inc.js"})
 
     (minify :in "cljsjs/react-input-mask/development/react-input-mask.inc.js"
-            :out "cljsjs/react-input-mask/production/react-input-mask.min.js")
+            :out "cljsjs/react-input-mask/production/react-input-mask.min.inc.js")
 
     (sift :include #{#"^cljsjs"})
     (deps-cljs :name "cljsjs.react-input-mask"

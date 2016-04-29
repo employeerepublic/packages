@@ -1,28 +1,28 @@
 (set-env!
   :resource-paths #{"resources"}
-  :dependencies '[[adzerk/bootlaces "0.1.13"]
-                  [cljsjs/boot-cljsjs "0.5.0" :scope "test"]])
+  :dependencies '[[adzerk/bootlaces "0.1.13" :scope "test"]
+                  [cljsjs/boot-cljsjs "0.5.1" :scope "test"]])
 
 (require
  '[adzerk.bootlaces :refer :all]
  '[cljsjs.boot-cljsjs.packaging :refer :all])
 
-(def +lib-version+ "0.14.7")
-(def +version+ (str +lib-version+ "-0"))
+(def +lib-version+ "15.0.1")
+(def +version+ (str +lib-version+ "-1"))
 
 (def checksums
   {'cljsjs/react
-   {:dev "9827F329E05158D465B92FCA097B62BA",
-    :min "9BA549A9A66AB9C7E8EAE26D39FCDC5F"},
+   {:dev "E4752B6AF074C6D4D204E930E092A6BC",
+    :min "075A24757DDF994EE088AE96F4D5682E"},
    'cljsjs/react-with-addons
-   {:dev "94EC7E714FA1B9A6C5E12D3328C1B3F1",
-    :min "DB96F1157B73649E2B3AB292C8A00BC0"},
+   {:dev "c7165d171f943b5d81a3dcba26afc1f0",
+    :min "36c89a669a478e919a35567e7558e19d"},
    'cljsjs/react-dom
-   {:dev "4727B1A3E7487B3DE93E0982D2111F12",
-    :min "120C66F0F9C6E5B7813D62FA445F8996"},
+   {:dev "380D8646723F8FC01288E74C683D8E64",
+    :min "E714DF9295D8FF0C1B4D6D84EAF0B2B7"},
    'cljsjs/react-dom-server
-   {:dev "7DAB83C92CDB8A3D724E85E160783AFB",
-    :min "F8FA5776A7014CDE8EF038404268AF0A"}})
+   {:dev "D7B9CFCE04DE4391927B33875B8EB0B3",
+    :min "EEF359E6F0D740FE3C3E908365FFDCAC"}})
 
 (task-options!
  pom  {:project     'cljsjs/react
@@ -91,8 +91,8 @@
     {:extern-name "react.ext.js"
      :namespace "cljsjs.react"
      :project 'mccraigmccraig/react-with-addons
-     :dev-url "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-0.14.7.js"
-     :min-url "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-0.14.7.min.js"}))
+     :dev-url "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-15.0.1.js"
+     :min-url "https://raw.githubusercontent.com/employeerepublic/react-with-addons-and-tap-event-plugin/master/react-with-addons-15.0.1.min.js"}))
 
 (deftask package []
   (comp
