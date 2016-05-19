@@ -8,15 +8,15 @@
  '[cljsjs.boot-cljsjs.packaging :refer :all])
 
 (def +lib-version+ "15.0.1")
-(def +version+ (str +lib-version+ "-2"))
+(def +version+ (str +lib-version+ "-3"))
 
 (def checksums
   {'cljsjs/react
    {:dev "E4752B6AF074C6D4D204E930E092A6BC",
     :min "075A24757DDF994EE088AE96F4D5682E"},
    'cljsjs/react-with-addons
-   {:dev "c7165d171f943b5d81a3dcba26afc1f0",
-    :min "36c89a669a478e919a35567e7558e19d"},
+   {:dev "04e4e8ba887d8f1dde0640987ec4abd4",
+    :min "dfea68d6ba380bd8f5abc89f36c65aa6"},
    'cljsjs/react-dom
    {:dev "380D8646723F8FC01288E74C683D8E64",
     :min "E714DF9295D8FF0C1B4D6D84EAF0B2B7"},
